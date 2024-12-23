@@ -1,0 +1,38 @@
+{
+  "name": "ts-blueprint",
+  "description": "Package layouts for any type of package",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "author": {
+    "name": "Drew Powers",
+    "email": "drew@pow.rs"
+  },
+  "scripts": {
+    "dev": "vite dev",
+    "build": "vite build",
+    "lint": "biome check .",
+    "format": "biome format --write .",
+    "test": "vitest run",
+    "update:npm": "node ./scripts/update-pkg-info.js"
+  },
+  "dependencies": {
+    "pacote": "^21.0.0",
+    "react": "^19.0.0",
+    "react-aria-components": "^1.5.0",
+    "react-dom": "^19.0.0",
+    "rollup": "^4.29.1",
+    "shiki": "^1.24.4"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^22.10.2",
+    "@types/pacote": "^11.1.8",
+    "@types/react": "^19.0.2",
+    "@types/react-dom": "^19.0.2",
+    "@vitejs/plugin-react-swc": "^3.7.2",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.4",
+    "vitest": "^2.1.8"
+  }
+}
