@@ -50,6 +50,7 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
       module: settings.module,
     }),
     ...buildTSConfig({
+      framework: settings.framework,
       module: settings.module,
     }),
     ...buildTest({

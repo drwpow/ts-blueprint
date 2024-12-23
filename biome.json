@@ -2,7 +2,13 @@
   "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["./public/assets/**", "./src/data/npm.ts", "./test/fixtures/**"]
+    "ignore": [
+      "./dist/**",
+      "./node_modules/**",
+      "./public/assets/**",
+      "./src/data/npm.ts",
+      "./test/fixtures/**"
+    ]
   },
   "formatter": {
     "enabled": true,

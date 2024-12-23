@@ -1,7 +1,8 @@
 import { ext, trimLeading } from "../../string.js";
-import type { File, Module } from "../../types.js";
+import type { File, Framework, Module } from "../../types.js";
 
 export interface JestOptions {
+  framework: Framework;
   module: Module;
 }
 

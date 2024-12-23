@@ -1,8 +1,8 @@
 import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
-import { type Test, pkgBuilder } from "../src/lib/builder/index.js";
+import { pkgBuilder } from "../src/lib/builder/index.js";
 import type { Linter } from "../src/lib/builder/linter.js";
-import type { Framework, Module } from "../src/lib/types.js";
+import type { Framework, Module, Test } from "../src/lib/types.js";
 
 const FIXTURES_DIR = new URL("./fixtures/", import.meta.url);
 

@@ -1,15 +1,20 @@
-import type { File, Module } from "./types.js";
+import type { File, Framework, Module } from "../types.js";
 
 export interface TSConfigOptions {
+  framework: Framework;
   module: Module;
 }
 
-export default function buildTSConfig({ module }: TSConfigOptions): File[] {
+export default function buildTSConfig({
+  framework,
+  module,
+}: TSConfigOptions): File[] {
   // biome-ignore lint/suspicious/noExplicitAny: Type not exported by typescript
   const tsconfig: any = {
     compilerOptions: {
       module: module === "esm" ? "NodeNext" : "CommonJS",
       moduleResolution: module === "esm" ? "nodenext" : "node10",
+      ...(framework === "react" ? { react: "react-jsx" } : {}),
       strict: true,
       target: "ESNext",
     },

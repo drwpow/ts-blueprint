@@ -14,6 +14,6 @@ export default function buildTest({
   test,
 }: TestOptions): File[] {
   return test === "jest"
-    ? buildJest({ module })
+    ? buildJest({ framework, module })
     : buildVitest({ framework, module });
 }

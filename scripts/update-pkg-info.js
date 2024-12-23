@@ -37,17 +37,20 @@ async function main() {
   const manifests = await Promise.all(
     PACKAGES.map((name) => pacote.manifest(name)),
   );
+
+  // Note: we have to use a more aggressive  “as” here because Pacote’s types are out of date
+
   fs.writeFileSync(
     OUT_FILE,
-    `import type { Manifest } from "pacote";
+    `import type pacote from "pacote";
 
-const manifests: Record<${PACKAGES.map((n) => JSON.stringify(n)).join(" | ")}, Manifest> = {${manifests
+const manifests = {${manifests
       .map(
         (m) => `
   "${m.name}": ${JSON.stringify(m)},`,
       )
       .join("")}
-};
+} as unknown as Record<${PACKAGES.map((n) => JSON.stringify(n)).join(" | ")}, Awaited<ReturnType<typeof pacote.manifest>>>;
 
 export default manifests`,
   );
