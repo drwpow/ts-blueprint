@@ -31,7 +31,11 @@ describe("Blueprint", () => {
               },
             });
             for (const file of files) {
-              const loc = new URL(file.filename, cwd);
+              // don’t actually save `package.json` files because it will slow `pnpm i`
+              const loc = new URL(
+                file.filename.replace("package.json", "pkg.json"),
+                cwd,
+              );
               await expect(file.contents).toMatchFileSnapshot(
                 fileURLToPath(loc),
               );

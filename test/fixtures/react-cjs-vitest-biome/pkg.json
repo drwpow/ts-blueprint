@@ -16,6 +16,10 @@
     "lint": "biome check .",
     "test": "vitest run"
   },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@rollup/plugin-typescript": "^12.1.2",

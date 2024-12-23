@@ -16,6 +16,9 @@
     "lint": "biome check .",
     "test": "vitest run"
   },
+  "peerDependencies": {
+    "svelte": "^5.15.0"
+  },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@rollup/plugin-typescript": "^12.1.2",
