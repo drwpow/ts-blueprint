@@ -2,12 +2,18 @@ import fs from "node:fs";
 import pacote from "pacote";
 
 const PACKAGES = [
+  "@babel/core",
+  "@babel/preset-env",
+  "@babel/preset-typescript",
   "@biomejs/biome",
   "@eslint/js",
   "@rollup/plugin-typescript",
   "@sveltejs/vite-plugin-svelte",
+  "@testing-library/jest-dom",
   "@testing-library/react",
   "@testing-library/vue",
+  "@testing-library/svelte",
+  "@types/babel__core",
   "@types/react-dom",
   "@types/react",
   "@vitejs/plugin-react",
@@ -18,6 +24,7 @@ const PACKAGES = [
   "react",
   "rollup",
   "svelte",
+  "ts-jest",
   "typescript-eslint",
   "typescript",
   "vitest",

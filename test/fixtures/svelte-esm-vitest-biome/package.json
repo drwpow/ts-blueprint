@@ -1,0 +1,16 @@
+{
+  "name": "my-app",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/svelte": "^5.2.6",
+    "rollup": "^4.29.1",
+    "vitest": "^2.1.8"
+  },
+  "type": "module"
+}

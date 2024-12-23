@@ -1,4 +1,4 @@
-import "./instructions.css";
+import "./Instructions.css";
 
 export default function Instructions() {
   return (
@@ -6,7 +6,11 @@ export default function Instructions() {
       <h1>TS Blueprint</h1>
       <details>
         <summary>Instructions</summary>
-        <p>Instructions go here</p>
+        <p>
+          Configure your build, and see your updated settings on the right.
+          These are merely starter templates, so copy and paste what you need
+          into your own setup.
+        </p>
       </details>
     </section>
   );

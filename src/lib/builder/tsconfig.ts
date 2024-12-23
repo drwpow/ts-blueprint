@@ -9,7 +9,7 @@ export default function buildTSConfig({ module }: TSConfigOptions): File[] {
   const tsconfig: any = {
     compilerOptions: {
       module: module === "esm" ? "NodeNext" : "CommonJS",
-      moduleResolution: module === "esm" ? "node" : "Node16",
+      moduleResolution: module === "esm" ? "nodenext" : "node10",
       strict: true,
       target: "ESNext",
     },

@@ -1,6 +1,6 @@
 /** Trim leading whitespace */
 export function trimLeading(str: string, replacement = "") {
-  return str.replace(/^\s+/, replacement);
+  return str.replace(/^\s*/, replacement);
 }
 
 /** Figure out extension */

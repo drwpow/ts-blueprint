@@ -1,12 +1,12 @@
-@import './Button.css';
-@import './Link.css';
+@import "./Button.css";
+@import "./Link.css";
 @import "./theme.css";
 
 .react-aria-Tabs {
   display: flex;
   color: var(--text-color);
 
-  &[data-orientation=horizontal] {
+  &[data-orientation="horizontal"] {
     flex-direction: column;
   }
 }
@@ -14,7 +14,7 @@
 .react-aria-TabList {
   display: flex;
 
-  &[data-orientation=horizontal] {
+  &[data-orientation="horizontal"] {
     border-bottom: 1px solid var(--border-color);
 
     .react-aria-Tab {
@@ -51,7 +51,7 @@
   }
 
   &[data-focus-visible]:after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 4px;
     border-radius: 4px;
@@ -71,13 +71,13 @@
 }
 
 .react-aria-Tabs {
-  &[data-orientation=vertical] {
+  &[data-orientation="vertical"] {
     flex-direction: row;
   }
 }
 
 .react-aria-TabList {
-  &[data-orientation=vertical] {
+  &[data-orientation="vertical"] {
     flex-direction: column;
     border-inline-end: 1px solid gray;
 

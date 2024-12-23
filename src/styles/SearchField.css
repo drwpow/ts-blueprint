@@ -1,12 +1,13 @@
-@import './Button.css';
-@import './Form.css';
+@import "./Button.css";
+@import "./Form.css";
 @import "./theme.css";
 
 .react-aria-SearchField {
   display: grid;
-  grid-template-areas: "label label"
-                       "input button"
-                       "help  help";
+  grid-template-areas:
+    "label label"
+    "input button"
+    "help  help";
   grid-template-columns: 1fr auto;
   align-items: center;
   width: fit-content;
@@ -57,7 +58,7 @@
     display: none;
   }
 
-  .react-aria-Input{
+  .react-aria-Input {
     &[data-invalid] {
       border-color: var(--invalid-color);
     }
@@ -69,7 +70,7 @@
     color: var(--invalid-color);
   }
 
-  [slot=description] {
+  [slot="description"] {
     grid-area: help;
     font-size: 12px;
   }

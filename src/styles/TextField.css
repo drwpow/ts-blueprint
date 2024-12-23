@@ -1,4 +1,4 @@
-@import './Button.css';
+@import "./Button.css";
 @import "./theme.css";
 
 .react-aria-TextField {
@@ -35,7 +35,7 @@
     color: var(--invalid-color);
   }
 
-  [slot=description] {
+  [slot="description"] {
     font-size: 12px;
   }
 

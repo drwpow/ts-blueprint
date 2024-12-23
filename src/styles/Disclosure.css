@@ -1,8 +1,8 @@
 @import "./theme.css";
-@import './Button.css';
+@import "./Button.css";
 
 .react-aria-Disclosure {
-  .react-aria-Button[slot=trigger] {
+  .react-aria-Button[slot="trigger"] {
     background: none;
     border: none;
     box-shadow: none;
@@ -23,7 +23,7 @@
     }
   }
 
-  &[data-expanded] .react-aria-Button[slot=trigger] svg {
+  &[data-expanded] .react-aria-Button[slot="trigger"] svg {
     rotate: 90deg;
   }
 }

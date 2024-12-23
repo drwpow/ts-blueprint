@@ -1,6 +1,6 @@
 @import "./theme.css";
-@import './TextField.css';
-@import './Button.css';
+@import "./TextField.css";
+@import "./Button.css";
 
 .react-aria-Form {
   display: flex;
@@ -9,7 +9,7 @@
   gap: 8px;
 }
 
-.react-aria-Form [role=alert] {
+.react-aria-Form [role="alert"] {
   border: 2px solid var(--invalid-color);
   background: var(--overlay-background);
   border-radius: 6px;

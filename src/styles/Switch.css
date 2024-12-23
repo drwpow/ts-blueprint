@@ -17,7 +17,7 @@
     transition: all 200ms;
 
     &:before {
-      content: '';
+      content: "";
       display: block;
       margin: 0.143rem;
       width: 0.857rem;

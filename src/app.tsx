@@ -1,7 +1,6 @@
 import { createRoot } from "react-dom/client";
-import Instructions from "./components/instructions.js";
-import Builder from "./components/builder.js";
-
+import Builder from "./components/Builder.js";
+import Instructions from "./components/Instructions.js";
 import "./styles/app.css";
 
 function App() {

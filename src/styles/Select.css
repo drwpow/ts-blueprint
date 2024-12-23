@@ -1,7 +1,7 @@
-@import './ListBox.css';
-@import './Popover.css';
-@import './Button.css';
-@import './Form.css';
+@import "./ListBox.css";
+@import "./Popover.css";
+@import "./Button.css";
+@import "./Form.css";
 @import "./theme.css";
 
 .react-aria-Select {
@@ -42,7 +42,7 @@
   }
 }
 
-.react-aria-Popover[data-trigger=Select] {
+.react-aria-Popover[data-trigger="Select"] {
   min-width: var(--trigger-width);
 
   .react-aria-ListBox {
@@ -70,9 +70,9 @@
       color: var(--text-color);
 
       &::before {
-        content: '✓';
-        content: '✓' / '';
-        alt: ' ';
+        content: "✓";
+        content: "✓" / "";
+        alt: " ";
         position: absolute;
         top: 4px;
         left: 4px;
@@ -94,7 +94,7 @@
 
 .react-aria-Select {
   .react-aria-SelectValue {
-    [slot=description] {
+    [slot="description"] {
       display: none;
     }
   }
@@ -133,7 +133,7 @@
     color: var(--invalid-color);
   }
 
-  [slot=description] {
+  [slot="description"] {
     font-size: 12px;
   }
 }

@@ -1,9 +1,9 @@
-@import './Button.css';
-@import './Popover.css';
-@import './Dialog.css';
-@import './DateField.css';
-@import './RangeCalendar.css';
-@import './Form.css';
+@import "./Button.css";
+@import "./Popover.css";
+@import "./Dialog.css";
+@import "./DateField.css";
+@import "./RangeCalendar.css";
+@import "./Form.css";
 @import "./theme.css";
 
 .react-aria-DateRangePicker {
@@ -35,11 +35,11 @@
     }
   }
 
-  [slot=start] + span {
+  [slot="start"] + span {
     padding: 0 4px;
   }
 
-  [slot=end] {
+  [slot="end"] {
     margin-right: 2rem;
     flex: 1;
   }
@@ -76,16 +76,16 @@
   }
 }
 
-.react-aria-Popover[data-trigger=DateRangePicker] {
+.react-aria-Popover[data-trigger="DateRangePicker"] {
   max-width: unset;
 }
 
 .react-aria-DateRangePicker {
   &[data-invalid] {
-    [slot=end]:after {
-      content: '🚫' / '';
-      content: '🚫';
-      alt: ' ';
+    [slot="end"]:after {
+      content: "🚫" / "";
+      content: "🚫";
+      alt: " ";
       flex: 1;
       text-align: end;
       margin-left: 1.5rem;
@@ -98,7 +98,7 @@
     color: var(--invalid-color);
   }
 
-  [slot=description] {
+  [slot="description"] {
     font-size: 12px;
   }
 }

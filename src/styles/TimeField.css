@@ -1,5 +1,5 @@
-@import './Form.css';
-@import './Button.css';
+@import "./Form.css";
+@import "./Button.css";
 @import "./theme.css";
 
 .react-aria-TimeField {
@@ -29,7 +29,7 @@
   text-align: end;
   color: var(--text-color);
 
-  &[data-type=literal] {
+  &[data-type="literal"] {
     padding: 0;
   }
 
@@ -62,7 +62,7 @@
     color: var(--invalid-color);
   }
 
-  [slot=description] {
+  [slot="description"] {
     font-size: 12px;
   }
 }

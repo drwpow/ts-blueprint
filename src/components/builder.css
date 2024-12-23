@@ -1,9 +1,25 @@
 .builder {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 2fr;
   margin-inline: auto;
   max-width: 80rem;
   padding-inline: 1.5rem;
   width: 100%;
+}
+
+.builder-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.builder-tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.builder-tablist {
+  overflow-x: auto;
+  width: calc(0.66666666 * var(--wrapper-width));
 }

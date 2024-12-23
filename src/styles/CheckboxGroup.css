@@ -1,6 +1,6 @@
-@import './Checkbox.css';
-@import './Form.css';
-@import './Button.css';
+@import "./Checkbox.css";
+@import "./Form.css";
+@import "./Button.css";
 @import "./theme.css";
 
 .react-aria-CheckboxGroup {
@@ -14,7 +14,7 @@
     color: var(--invalid-color);
   }
 
-  [slot=description] {
+  [slot="description"] {
     font-size: 12px;
   }
 }
