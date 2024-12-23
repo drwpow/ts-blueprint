@@ -70,6 +70,7 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
   files.push(
     ...buildPkgJSON({
       dependencies: [...allDeps],
+      framework: settings.framework,
       cjs: settings.module === "cjs",
       lint: settings.linter,
       test: settings.test,

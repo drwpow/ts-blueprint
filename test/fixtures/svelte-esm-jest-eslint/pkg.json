@@ -1,20 +1,13 @@
 {
   "name": "my-app",
   "main": "./dist/index.js",
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./*": "./dist/*",
-    "./package.json": "./package.json"
-  },
   "scripts": {
     "format": "eslint --fix .",
     "lint": "eslint .",
     "test": "jest"
+  },
+  "peerDependencies": {
+    "svelte": "^5.15.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
@@ -28,5 +21,5 @@
     "ts-jest": "^29.2.5",
     "typescript-eslint": "^8.18.1"
   },
-  "type": "commonjs"
+  "type": "module"
 }

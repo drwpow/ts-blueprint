@@ -1,23 +1,22 @@
 import type { Manifest } from "pacote";
 import npmData from "../../data/npm.js";
-import type { File, Test } from "../types.js";
+import type { File, Framework, Test } from "../types.js";
 import type { Linter } from "./linter.js";
 
 export interface PkgJSONOptions {
   cli?: boolean;
   cjs?: boolean;
   dependencies: (keyof typeof npmData)[];
+  framework: Framework;
   lint: Linter;
   test: Test;
 }
-
-/** Only include dependencies that are likely runtime deps */
-const PEER_DEP: (keyof typeof npmData)[] = ["react", "svelte", "vue"];
 
 export default function buildPkgJSON({
   cli,
   cjs,
   dependencies,
+  framework,
   lint,
   test,
 }: PkgJSONOptions): File[] {
@@ -53,15 +52,29 @@ export default function buildPkgJSON({
     };
   }
 
+  switch (framework) {
+    case "react": {
+      pkgInfo.peerDependencies = {
+        react: `^${npmData.react.version}`,
+        "react-dom": `^${npmData["react-dom"].version}`,
+      };
+      break;
+    }
+    case "svelte": {
+      pkgInfo.peerDependencies = { svelte: `^${npmData.svelte.version}` };
+      break;
+    }
+    case "vue": {
+      pkgInfo.peerDependencies = { vue: `^${npmData.vue.version}` };
+      break;
+    }
+  }
+
   const sortedDeps = [...dependencies];
   sortedDeps.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   for (const pkg of sortedDeps) {
     const data = npmData[pkg];
     if (data) {
-      if (PEER_DEP.includes(pkg)) {
-        pkgInfo.peerDependencies![pkg] = `^${data.version}`;
-      }
-
       // Note: this does not add any packages to dependencies. The logic is as
       // follows: when packaging for npm, you only want to add packages to
       // dependencies that meet ALL the following criteria:
