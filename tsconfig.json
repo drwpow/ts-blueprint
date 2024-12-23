@@ -2,9 +2,13 @@
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "nodenext",
+    "noEmit": true,
     "noUncheckedIndexedAccess": true,
     "jsx": "react-jsx",
+    "skipLibCheck": true,
     "strict": true,
     "target": "ESNext"
-  }
+  },
+  "include": ["src"],
+  "exclude": ["dist", "node_modules", "./src/data/npm.ts"]
 }

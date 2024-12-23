@@ -1,0 +1,8 @@
+.instructions {
+  margin-block: 4rem;
+}
+
+.instructions p {
+  line-height: 2;
+  max-width: 40em;
+}

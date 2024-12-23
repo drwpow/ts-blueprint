@@ -1,5 +1,5 @@
-@import './Button.css';
-@import './TextField.css';
+@import "./Button.css";
+@import "./TextField.css";
 @import "./theme.css";
 
 .react-aria-ModalOverlay {
@@ -8,7 +8,7 @@
   left: 0;
   width: 100vw;
   height: var(--visual-viewport-height);
-  background: rgba(0 0 0 / .5);
+  background: rgba(0 0 0 / 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,7 +68,7 @@
   }
 
   to {
-    background: rgba(45 0 0 / .3);
+    background: rgba(45 0 0 / 0.3);
     backdrop-filter: blur(10px);
   }
 }

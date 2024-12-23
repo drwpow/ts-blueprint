@@ -1,7 +1,6 @@
-import { ext } from "../string.js";
-import type { File, Framework, Module } from "../types.js";
-
-export type Test = "jest" | "vitest";
+import type { File, Framework, Module, Test } from "../types.js";
+import buildJest from "./tool/jest.js";
+import buildVitest from "./tool/vitest.js";
 
 export interface TestOptions {
   framework: Framework;
@@ -14,38 +13,7 @@ export default function buildTest({
   module,
   test,
 }: TestOptions): File[] {
-  if (test === "jest") {
-    return [
-      {
-        dependencies: ["jest"],
-        filename: ext("jest.config.cjs", module),
-        language: "javascript",
-        contents: [
-          '** @type {import("jest").Config} */',
-          "module.exports = {",
-          "};",
-          "",
-        ].join("\n"),
-      },
-      {
-        dependencies: ["@babel/core"],
-        filename: ext("babel.config.cjs", module),
-        language: "javascript",
-        contents: [].join("\n"),
-      },
-    ];
-  }
-
-  return [
-    {
-      dependencies: ["vitest"],
-      filename: ext("vite.config.mts", module),
-      language: "typescript",
-      contents: `import { defineConfig } from "vitest/config";
-
-export default defineConfig({
-});
-`,
-    },
-  ];
+  return test === "jest"
+    ? buildJest({ framework, module })
+    : buildVitest({ framework, module });
 }

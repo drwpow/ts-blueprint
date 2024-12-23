@@ -1,4 +1,4 @@
-@import './Button.css';
+@import "./Button.css";
 @import "./theme.css";
 
 .react-aria-RangeCalendar {
@@ -84,7 +84,6 @@
   }
 
   .react-aria-CalendarCell {
-
     &[data-unavailable] {
       text-decoration: line-through;
       color: var(--invalid-color);
@@ -96,7 +95,7 @@
     }
   }
 
-  [slot=errorMessage] {
+  [slot="errorMessage"] {
     font-size: 12px;
     color: var(--invalid-color);
   }

@@ -2,8 +2,9 @@
 
 .react-aria-ProgressBar {
   display: grid;
-  grid-template-areas: "label value"
-                       "bar bar";
+  grid-template-areas:
+    "label value"
+    "bar bar";
   grid-template-columns: 1fr auto;
   gap: 4px;
   width: 250px;

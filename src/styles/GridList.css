@@ -1,6 +1,6 @@
-@import './Button.css';
-@import './Checkbox.css';
-@import './ToggleButton.css';
+@import "./Button.css";
+@import "./Checkbox.css";
+@import "./ToggleButton.css";
 @import "./theme.css";
 
 .react-aria-GridList {
@@ -97,13 +97,17 @@
     gap: 0;
 
     .react-aria-GridListItem[data-selected]:has(+ [data-selected]),
-    .react-aria-GridListItem[data-selected]:has(+ .react-aria-DropIndicator + [data-selected]) {
+    .react-aria-GridListItem[data-selected]:has(
+        + .react-aria-DropIndicator + [data-selected]
+      ) {
       border-end-start-radius: 0;
       border-end-end-radius: 0;
     }
 
     .react-aria-GridListItem[data-selected] + [data-selected],
-    .react-aria-GridListItem[data-selected] + .react-aria-DropIndicator + [data-selected] {
+    .react-aria-GridListItem[data-selected]
+      + .react-aria-DropIndicator
+      + [data-selected] {
       border-start-start-radius: 0;
       border-start-end-radius: 0;
     }
@@ -138,7 +142,7 @@
     opacity: 0.6;
   }
 
-  [slot=drag] {
+  [slot="drag"] {
     all: unset;
     width: 15px;
     text-align: center;
@@ -169,7 +173,7 @@
 
 .react-aria-GridListItem[data-drop-target] {
   outline: 2px solid var(--highlight-background);
-  background:var(--highlight-overlay);
+  background: var(--highlight-overlay);
 }
 
 .react-aria-DropIndicator {

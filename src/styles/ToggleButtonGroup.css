@@ -1,6 +1,6 @@
 @import "./theme.css";
-@import './Button.css';
-@import './ToggleButton.css';
+@import "./Button.css";
+@import "./ToggleButton.css";
 
 .react-aria-ToggleButtonGroup {
   display: flex;
@@ -20,12 +20,12 @@
   }
 }
 
-.react-aria-ToggleButtonGroup[data-orientation=horizontal] {
+.react-aria-ToggleButtonGroup[data-orientation="horizontal"] {
   flex-direction: row;
 
   > button {
     margin-inline-start: -1px;
-    
+
     &:first-child {
       border-radius: 4px 0 0 4px;
       margin-inline-start: 0;
@@ -37,13 +37,13 @@
   }
 }
 
-.react-aria-ToggleButtonGroup[data-orientation=vertical] {
+.react-aria-ToggleButtonGroup[data-orientation="vertical"] {
   flex-direction: column;
   width: fit-content;
 
   > button {
     margin-block-start: -1px;
-    
+
     &:first-child {
       border-radius: 4px 4px 0 0;
       margin-block-start: 0;

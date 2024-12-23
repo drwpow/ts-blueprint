@@ -1,16 +1,33 @@
 import type npmData from "../../data/npm.js";
-import type { File, Framework, Module } from "../types.js";
+import type { File, Framework, Module, Test } from "../types.js";
 import buildBundler from "./bundler.js";
 import buildLinter, { type Linter } from "./linter.js";
-import buildPkgJSON from "./pkgjson.js";
-import buildTest, { type Test } from "./test.js";
+import buildPkgJSON from "./pkg-json.js";
+import buildTest from "./test.js";
 import buildTSConfig from "./tsconfig.js";
 
 export * from "./bundler.js";
 export * from "./linter.js";
-export * from "./pkgjson.js";
+export * from "./pkg-json.js";
 export * from "./tsconfig.js";
 export * from "./test.js";
+
+const FILE_ORDER = [
+  // constants
+  "package.json",
+  "tsconfig.json",
+  "tsconfig.build.json",
+
+  // variables
+  "babel.config",
+  "biome.json",
+  "eslint.config",
+  "jest.config",
+  "jest.setup",
+  "rollup.config",
+  "vitest.config",
+  "vitest.setup",
+];
 
 export interface PkgBuilderOptions {
   settings: {
@@ -33,6 +50,7 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
       module: settings.module,
     }),
     ...buildTSConfig({
+      framework: settings.framework,
       module: settings.module,
     }),
     ...buildTest({
@@ -54,8 +72,15 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
       dependencies: [...allDeps],
       cjs: settings.module === "cjs",
       test: settings.test,
+      cli: settings.cli,
     }),
   );
 
-  return files;
+  const sorted = [...files];
+  sorted.sort((a, b) => {
+    const aInd = FILE_ORDER.findIndex((f) => a.filename.startsWith(f));
+    const bInd = FILE_ORDER.findIndex((f) => b.filename.startsWith(f));
+    return (aInd === -1 ? 10_000 : aInd) - (bInd === -1 ? 10_000 : bInd);
+  });
+  return sorted;
 }

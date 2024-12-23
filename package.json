@@ -9,11 +9,12 @@
     "email": "drew@pow.rs"
   },
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
+    "dev": "pnpm run prepare:shiki && vite dev",
+    "build": "pnpm run prepare:shiki && tsc --noEmit && vite build",
     "lint": "biome check .",
     "format": "biome format --write .",
     "test": "vitest run",
+    "prepare:shiki": "mkdir -p public/assets/shiki && cp node_modules/shiki/dist/onig.wasm public/assets/shiki/onig.wasm && cp -r node_modules/shiki/dist/themes public/assets/shiki && cp -r node_modules/shiki/dist/langs public/assets/shiki",
     "update:npm": "node ./scripts/update-pkg-info.js"
   },
   "dependencies": {

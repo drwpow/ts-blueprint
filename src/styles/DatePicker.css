@@ -1,9 +1,9 @@
-@import './Button.css';
-@import './Popover.css';
-@import './Dialog.css';
-@import './DateField.css';
-@import './Calendar.css';
-@import './Form.css';
+@import "./Button.css";
+@import "./Popover.css";
+@import "./Dialog.css";
+@import "./DateField.css";
+@import "./Calendar.css";
+@import "./Form.css";
 @import "./theme.css";
 
 .react-aria-DatePicker {
@@ -45,16 +45,16 @@
   }
 }
 
-.react-aria-Popover[data-trigger=DatePicker] {
+.react-aria-Popover[data-trigger="DatePicker"] {
   max-width: unset;
 }
 
 .react-aria-DatePicker {
   &[data-invalid] {
     .react-aria-DateInput:after {
-      content: '🚫' / '';
-      content: '🚫';
-      alt: ' ';
+      content: "🚫" / "";
+      content: "🚫";
+      alt: " ";
       flex: 1;
       text-align: end;
     }
@@ -65,7 +65,7 @@
     color: var(--invalid-color);
   }
 
-  [slot=description] {
+  [slot="description"] {
     font-size: 12px;
   }
 }

@@ -1,8 +1,8 @@
-@import './Button.css';
-@import './ToggleButton.css';
-@import './Checkbox.css';
-@import './Popover.css';
-@import './Menu.css';
+@import "./Button.css";
+@import "./ToggleButton.css";
+@import "./Checkbox.css";
+@import "./Popover.css";
+@import "./Menu.css";
 @import "./theme.css";
 
 .react-aria-Table {
@@ -27,7 +27,7 @@
     color: var(--text-color);
 
     &:after {
-      content: '';
+      content: "";
       display: table-row;
       height: 2px;
     }
@@ -41,7 +41,8 @@
   .react-aria-Row {
     --radius-top: 6px;
     --radius-bottom: 6px;
-    --radius: var(--radius-top) var(--radius-top) var(--radius-bottom) var(--radius-bottom);
+    --radius: var(--radius-top) var(--radius-top) var(--radius-bottom)
+      var(--radius-bottom);
     border-radius: var(--radius);
     clip-path: inset(0 round var(--radius)); /* firefox */
     outline: none;
@@ -103,12 +104,16 @@
   /* join selected items if :has selector is supported */
   @supports selector(:has(.foo)) {
     .react-aria-Row[data-selected]:has(+ [data-selected]),
-    .react-aria-Row[data-selected]:has(+ .react-aria-DropIndicator + [data-selected]) {
+    .react-aria-Row[data-selected]:has(
+        + .react-aria-DropIndicator + [data-selected]
+      ) {
       --radius-bottom: 0px;
     }
 
     .react-aria-Row[data-selected] + [data-selected],
-    .react-aria-Row[data-selected] + .react-aria-DropIndicator + [data-selected]{
+    .react-aria-Row[data-selected]
+      + .react-aria-DropIndicator
+      + [data-selected] {
       --radius-top: 0px;
     }
   }
@@ -191,15 +196,15 @@
     border-color: transparent;
     background-clip: content-box;
 
-    &[data-resizable-direction=both] {
+    &[data-resizable-direction="both"] {
       cursor: ew-resize;
     }
 
-    &[data-resizable-direction=left] {
+    &[data-resizable-direction="left"] {
       cursor: e-resize;
     }
 
-    &[data-resizable-direction=right] {
+    &[data-resizable-direction="right"] {
       cursor: w-resize;
     }
 
@@ -227,7 +232,7 @@
     transform: translateZ(0);
   }
 
-  [slot=drag] {
+  [slot="drag"] {
     all: unset;
     width: 15px;
     text-align: center;
@@ -247,12 +252,12 @@
 .react-aria-Table[data-drop-target] {
   outline: 2px solid var(--highlight-background);
   outline-offset: -1px;
-  background: var(--highlight-overlay)
+  background: var(--highlight-overlay);
 }
 
 .react-aria-Row[data-drop-target] {
   outline: 2px solid var(--highlight-background);
-  background: var(--highlight-overlay)
+  background: var(--highlight-overlay);
 }
 
 .react-aria-DropIndicator[data-drop-target] {

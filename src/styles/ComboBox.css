@@ -1,8 +1,8 @@
-@import './Checkbox.css';
-@import './ListBox.css';
-@import './Popover.css';
-@import './Form.css';
-@import './Button.css';
+@import "./Checkbox.css";
+@import "./ListBox.css";
+@import "./Popover.css";
+@import "./Form.css";
+@import "./Button.css";
 @import "./theme.css";
 
 .react-aria-ComboBox {
@@ -45,7 +45,7 @@
   }
 }
 
-.react-aria-Popover[data-trigger=ComboBox] {
+.react-aria-Popover[data-trigger="ComboBox"] {
   width: var(--trigger-width);
 
   .react-aria-ListBox {
@@ -73,9 +73,9 @@
       color: var(--text-color);
 
       &::before {
-        content: '✓';
-        content: '✓' / '';
-        alt: ' ';
+        content: "✓";
+        content: "✓" / "";
+        alt: " ";
         position: absolute;
         top: 4px;
         left: 4px;
@@ -119,7 +119,7 @@
     color: var(--invalid-color);
   }
 
-  [slot=description] {
+  [slot="description"] {
     font-size: 12px;
   }
 }

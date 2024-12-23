@@ -25,7 +25,7 @@
     outline-offset: -1px;
   }
 
-  &[data-disabled]{
+  &[data-disabled] {
     border-color: var(--border-color-disabled);
     color: var(--text-color-disabled);
   }

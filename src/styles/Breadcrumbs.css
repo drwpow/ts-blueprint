@@ -10,9 +10,9 @@
   color: var(--text-color);
 
   .react-aria-Breadcrumb:not(:last-child)::after {
-    content: '›';
-    content: '›' / '';
-    alt: ' ';
+    content: "›";
+    content: "›" / "";
+    alt: " ";
     padding: 0 5px;
   }
 
@@ -33,7 +33,7 @@
     }
 
     &[data-focus-visible]:after {
-      content: '';
+      content: "";
       position: absolute;
       inset: -2px -4px;
       border-radius: 6px;

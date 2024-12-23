@@ -1,6 +1,6 @@
-@import './Button.css';
-@import './Dialog.css';
-@import './Switch.css';
+@import "./Button.css";
+@import "./Dialog.css";
+@import "./Switch.css";
 @import "./theme.css";
 
 .react-aria-Popover {
@@ -21,7 +21,7 @@
     stroke-width: 1px;
   }
 
-  &[data-placement=top] {
+  &[data-placement="top"] {
     --origin: translateY(8px);
 
     &:has(.react-aria-OverlayArrow) {
@@ -29,7 +29,7 @@
     }
   }
 
-  &[data-placement=bottom] {
+  &[data-placement="bottom"] {
     --origin: translateY(-8px);
 
     &:has(.react-aria-OverlayArrow) {
@@ -41,7 +41,7 @@
     }
   }
 
-  &[data-placement=right] {
+  &[data-placement="right"] {
     --origin: translateX(-8px);
 
     &:has(.react-aria-OverlayArrow) {
@@ -53,7 +53,7 @@
     }
   }
 
-  &[data-placement=left] {
+  &[data-placement="left"] {
     --origin: translateX(8px);
 
     &:has(.react-aria-OverlayArrow) {
