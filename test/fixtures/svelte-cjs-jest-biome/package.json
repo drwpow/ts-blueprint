@@ -12,6 +12,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
+    "format": "biome format --write .",
+    "lint": "biome check .",
     "test": "jest"
   },
   "devDependencies": {

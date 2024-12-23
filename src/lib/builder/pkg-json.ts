@@ -1,11 +1,13 @@
 import type { Manifest } from "pacote";
 import npmData from "../../data/npm.js";
 import type { File, Test } from "../types.js";
+import type { Linter } from "./linter.js";
 
 export interface PkgJSONOptions {
   cli?: boolean;
   cjs?: boolean;
   dependencies: (keyof typeof npmData)[];
+  lint: Linter;
   test: Test;
 }
 
@@ -16,6 +18,7 @@ export default function buildPkgJSON({
   cli,
   cjs,
   dependencies,
+  lint,
   test,
 }: PkgJSONOptions): File[] {
   const pkgInfo: Partial<Manifest> = {
@@ -23,6 +26,8 @@ export default function buildPkgJSON({
     type: cjs ? "commonjs" : "module",
     main: "./dist/index.js",
     scripts: {
+      format: lint === "eslint" ? "eslint --fix ." : "biome format --write .",
+      lint: lint === "eslint" ? "eslint ." : "biome check .",
       test: test === "jest" ? "jest" : "vitest run",
     },
     peerDependencies: {},
