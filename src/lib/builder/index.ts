@@ -71,6 +71,7 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
     ...buildPkgJSON({
       dependencies: [...allDeps],
       cjs: settings.module === "cjs",
+      lint: settings.linter,
       test: settings.test,
       cli: settings.cli,
     }),

@@ -12,6 +12,8 @@
     "./package.json": "./package.json"
   },
   "scripts": {
+    "format": "eslint --fix .",
+    "lint": "eslint .",
     "test": "vitest run"
   },
   "devDependencies": {

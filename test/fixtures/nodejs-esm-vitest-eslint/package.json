@@ -2,6 +2,8 @@
   "name": "my-app",
   "main": "./dist/index.js",
   "scripts": {
+    "format": "eslint --fix .",
+    "lint": "eslint .",
     "test": "vitest run"
   },
   "devDependencies": {

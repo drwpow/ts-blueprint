@@ -11,7 +11,7 @@ export default function buildBiome(): File[] {
           $schema: "https://biomejs.dev/schemas/1.9.4/schema.json",
           files: {
             ignoreUnknown: false,
-            ignore: [],
+            ignore: ["dist/**", "node_modules/**", "public/**"],
           },
           formatter: {
             enabled: true,
