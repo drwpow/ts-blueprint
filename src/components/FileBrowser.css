@@ -18,6 +18,7 @@
   margin: 0;
   padding-block: 1rem;
   padding-inline: 0;
+  user-select: none;
 }
 
 .filebrowser-tab {
@@ -32,6 +33,7 @@
   line-height: 1;
   padding-inline: 1.5rem;
   padding-block: 0;
+  user-select: none;
   width: 100%;
 }
 
@@ -47,4 +49,8 @@
 .filebrowser-tab[aria-selected="true"] {
   background: var(--bg-highlight);
   color: var(--fg-highlight);
+}
+
+.filebrowser-code {
+  overflow-x: auto;
 }

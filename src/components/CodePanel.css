@@ -1,5 +1,20 @@
-.codepanel-wrapper {
+.codepanel {
   position: relative;
+}
+
+.codepanel .line {
+  counter-increment: lineno;
+
+  &::before {
+    content: counter(lineno);
+    display: inline-flex;
+    justify-content: flex-end;
+    opacity: 0.5;
+    padding-inline-end: 1rem;
+    text-align: right;
+    user-select: none;
+    width: 2.5rem;
+  }
 }
 
 .codepanel-copy {

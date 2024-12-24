@@ -11,6 +11,13 @@ export interface PkgJSONOptions {
   test: Test;
 }
 
+const ESLINT_FORMAT = "eslint --fix .";
+const ESLINT_LINT = "eslint .";
+const BIOME_FORMAT = "biome format --write .";
+const BIOME_LINT = "biome check .";
+const VITEST_TEST = "vitest run";
+const JEST_TEST = "jest";
+
 export default function buildPkgJSON({
   cli,
   dependencies,
@@ -18,17 +25,11 @@ export default function buildPkgJSON({
   lint,
   test,
 }: PkgJSONOptions): File[] {
-  const pkgInfo: Partial<Manifest> = {
-    name: "my-app",
+  let pkgInfo: Partial<Manifest> = {
+    name: "my-library",
+    version: "0.0.0",
     type: "module",
     main: "./dist/index.js",
-    scripts: {
-      format: lint === "eslint" ? "eslint --fix ." : "biome format --write .",
-      lint: lint === "eslint" ? "eslint ." : "biome check .",
-      test: test === "jest" ? "jest" : "vitest run",
-    },
-    peerDependencies: {},
-    devDependencies: {},
   };
 
   if (cli) {
@@ -37,35 +38,122 @@ export default function buildPkgJSON({
     };
   }
 
-  pkgInfo.exports = {
-    ".": {
-      import: "./dist/index.js",
-      require: "./dist/index.cjs",
-      types: "./dist/index.d.ts",
-      default: "./dist/index.js",
-    },
-    "./*": "./dist/*",
-    "./package.json": "./package.json",
-  };
+  // Note: at first glance this feels too “WET” (opposite of DRY), but there are
+  // so many nuanced differences and minor details where there is less
+  // duplication than it appears. Trying to abstract this turns into something
+  // much harder to reason about, and spot differences, than a standard
+  // copy/pate block
 
   switch (framework) {
-    case "react": {
-      pkgInfo.peerDependencies = {
-        react: `^${npmData.react.version}`,
-        "react-dom": `^${npmData["react-dom"].version}`,
+    case "nodejs": {
+      pkgInfo = {
+        ...pkgInfo,
+        exports: {
+          ".": {
+            import: "./dist/index.js",
+            require: "./dist/index.cjs",
+            types: "./dist/index.d.ts",
+            default: "./dist/index.js",
+          },
+          "./*": "./dist/*",
+          "./package.json": "./package.json",
+        },
+        scripts: {
+          build: "rollup -c rollup.config.js",
+          format: lint === "eslint" ? ESLINT_FORMAT : BIOME_FORMAT,
+          lint: lint === "eslint" ? ESLINT_LINT : BIOME_LINT,
+          test: test === "jest" ? JEST_TEST : VITEST_TEST,
+        },
+        devDependencies: {},
       };
       break;
     }
-    case "svelte": {
-      pkgInfo.peerDependencies = { svelte: `^${npmData.svelte.version}` };
+
+    case "react": {
+      pkgInfo = {
+        ...pkgInfo,
+        sideEffects: ["**/*.css"],
+        exports: {
+          ".": {
+            import: "./dist/index.js",
+            types: "./dist/index.d.ts",
+            default: "./dist/index.js",
+          },
+          "./*": "./dist/*",
+          "./package.json": "./package.json",
+        },
+        scripts: {
+          build: "rollup -c rollup.config.js",
+          format: lint === "eslint" ? ESLINT_FORMAT : BIOME_FORMAT,
+          lint: lint === "eslint" ? ESLINT_LINT : BIOME_LINT,
+          test: test === "jest" ? JEST_TEST : VITEST_TEST,
+        },
+        peerDependencies: {
+          react: `^${npmData.react.version}`,
+          "react-dom": `^${npmData["react-dom"].version}`,
+        },
+        devDependencies: {},
+      };
       break;
     }
+
     case "vue": {
-      pkgInfo.peerDependencies = { vue: `^${npmData.vue.version}` };
+      pkgInfo = {
+        ...pkgInfo,
+        sideEffects: ["**/*.css"],
+        exports: {
+          ".": {
+            import: "./dist/index.js",
+            types: "./dist/index.d.ts",
+            default: "./dist/index.js",
+          },
+          "./*": "./dist/*",
+          "./package.json": "./package.json",
+        },
+        scripts: {
+          build: "rollup -c rollup.config.js",
+          format: lint === "eslint" ? ESLINT_FORMAT : BIOME_FORMAT,
+          lint: lint === "eslint" ? ESLINT_LINT : BIOME_LINT,
+          test: test === "jest" ? JEST_TEST : VITEST_TEST,
+        },
+        peerDependencies: {
+          vue: `^${npmData.vue.version}`,
+        },
+        devDependencies: {},
+      };
+      break;
+    }
+
+    case "svelte": {
+      pkgInfo = {
+        ...pkgInfo,
+        sideEffects: ["**/*.css"],
+        exports: {
+          ".": {
+            import: "./dist/index.js",
+            types: "./dist/index.d.ts",
+            svelte: "./dist/index.js",
+            default: "./dist/index.js",
+          },
+          "./*": "./dist/*",
+          "./package.json": "./package.json",
+        },
+        scripts: {
+          build: "svelte-package",
+          format: lint === "eslint" ? ESLINT_FORMAT : BIOME_FORMAT,
+          lint: lint === "eslint" ? ESLINT_LINT : BIOME_LINT,
+          test: test === "jest" ? JEST_TEST : VITEST_TEST,
+        },
+        peerDependencies: {
+          svelte: `^${npmData.svelte.version}`,
+        },
+        devDependencies: {},
+      };
       break;
     }
   }
 
+  // Deps
   const sortedDeps = [...dependencies];
   sortedDeps.sort((a, b) => a.localeCompare(b, undefined, { numeric: true }));
   for (const pkg of sortedDeps) {
@@ -97,51 +185,7 @@ export default function buildPkgJSON({
       dependencies: [],
       filename: "package.json",
       language: "json",
-      contents: JSON.stringify(sortPkgInfo(pkgInfo as Manifest), undefined, 2),
+      contents: JSON.stringify(pkgInfo, undefined, 2),
     },
   ];
-}
-
-const KEY_ORDER = [
-  "name",
-  "version",
-  "description",
-  "type",
-  "bin",
-  "main",
-  "exports",
-  "license",
-  "author",
-  "scripts",
-  "peerDependencies",
-  "dependencies",
-  "devDependencies",
-];
-
-/** Sort package.json by a specific key order */
-function sortPkgInfo(pkgInfo: Partial<Manifest>): Manifest {
-  const newPkgInfo = {} as Manifest;
-  const keysRemaining = Object.keys(pkgInfo);
-
-  // add ordered keys
-  for (const key of KEY_ORDER) {
-    if (!(key in pkgInfo)) {
-      continue;
-    }
-    keysRemaining.splice(keysRemaining.indexOf(key), 1);
-    if (
-      typeof pkgInfo[key] === "object" &&
-      Object.keys(pkgInfo[key]!).length === 0
-    ) {
-      continue;
-    }
-    newPkgInfo[key] = pkgInfo[key];
-  }
-
-  // add unknown keys (hopefully this is an empty list, but just in case)
-  for (const key of keysRemaining) {
-    newPkgInfo[key] = pkgInfo[key];
-  }
-
-  return newPkgInfo;
 }

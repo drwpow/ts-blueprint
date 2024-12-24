@@ -1,31 +1,81 @@
+import { formatImportStatement } from "../../module.js";
 import { trimLeading } from "../../string.js";
-import type { File, Framework } from "../../types.js";
+import type { Dependency, File, Framework } from "../../types.js";
 
 export interface RollupOptions {
   framework: Framework;
 }
 
+const PLUGIN_IMPORT_CSS: Dependency = {
+  name: "rollup-plugin-import-css",
+  default: "css",
+};
+const PLUGIN_TS: Dependency = {
+  name: "@rollup/plugin-typescript",
+  default: "ts",
+};
+
 export default function buildRollup({ framework }: RollupOptions): File[] {
-  const imports = ['import ts from "@rollup/plugin-typescript";'];
   const filename = "rollup.config.js";
   const language = "javascript";
-  const dependencies: File["dependencies"] = [
-    "@rollup/plugin-typescript",
-    "rollup",
-  ];
+  const dependencies: Dependency[] = [];
+  const depNames = dependencies.map((d) => d.name).concat("rollup");
   const files: File[] = [];
 
   switch (framework) {
     case "nodejs": {
-      imports.push('import commonjs from "@rollup/plugin-commonjs";');
-      dependencies.push("@rollup/plugin-commonjs");
+      dependencies.push(
+        { name: "@rollup/plugin-commonjs", default: "commonjs" },
+        PLUGIN_TS,
+      );
       files.push({
-        dependencies,
+        dependencies: [...depNames, ...dependencies.map((d) => d.name)],
         filename,
         language,
         contents: buildRollupConfig({
-          imports,
+          dependencies,
           plugins: [`ts({ tsconfig: "tsconfig.build.json" })`, "commonjs()"],
+          output: [
+            `   {
+      dir: "./dist/",
+      format: "es",
+      preserveModules: true,
+      sourcemap: true,
+    }`,
+            `   {
+      dir: "./dist/",
+      format: "cjs",
+      preserveModules: true,
+      sourcemap: true,
+      entryFileNames: "[name].cjs",
+    }`,
+          ],
+        }),
+      });
+      break;
+    }
+
+    case "react": {
+      dependencies.push(
+        PLUGIN_TS,
+        { name: "@vitejs/plugin-react-swc", default: "react" },
+        PLUGIN_IMPORT_CSS,
+      );
+      files.push({
+        dependencies: [...depNames, ...dependencies.map((d) => d.name)],
+        filename,
+        language,
+        contents: buildRollupConfig({
+          dependencies,
+          plugins: [
+            `css({
+      output: "all-components.css",
+    })`,
+            `ts({
+      tsconfig: "./tsconfig.build.json",
+    })`,
+          ],
+          external: `["*"]`,
           output: [
             `   {
       dir: "./dist/",
@@ -38,50 +88,6 @@ export default function buildRollup({ framework }: RollupOptions): File[] {
         react: "React",
       }
     }`,
-            `   {
-      dir: "./dist/",
-      format: "cjs",
-      preserveModules: true,
-      sourcemap: true,
-      entryFileNames: "[name].cjs",
-      globals: {
-        "react/jsx-runtime": "jsxRuntime",
-        "react-dom/client": "ReactDOM",
-        react: "React",
-      }
-    }`,
-          ],
-        }),
-      });
-      break;
-    }
-
-    case "react": {
-      files.push({
-        dependencies,
-        filename,
-        language,
-        contents: buildRollupConfig({
-          imports: [...imports, 'import css from "rollup-plugin-import-css";'],
-          plugins: [
-            `css({
-      output: "all-components.css",
-    })`,
-            `ts({
-      tsconfig: "./tsconfig.build.json",
-    })`,
-          ],
-          external: `["*"]`,
-          output: [
-            "[{",
-            '    dir: "./dist/"',
-            "    sourcemap: true",
-            `    globals: {
-      "react/jsx-runtime": "jsxRuntime",
-      "react-dom/client": "ReactDOM",
-      react: "React",
-    }`,
-            "  ],",
           ],
         }),
       });
@@ -89,26 +95,56 @@ export default function buildRollup({ framework }: RollupOptions): File[] {
     }
 
     case "svelte": {
+      dependencies.push(PLUGIN_TS, {
+        name: "@sveltejs/vite-plugin-svelte",
+        default: "svelte",
+      });
       files.push({
-        dependencies,
+        dependencies: [
+          ...depNames,
+          ...dependencies.map((d) => d.name),
+          "@sveltejs/package",
+        ],
         filename,
         language,
         contents: buildRollupConfig({
-          imports: ['import svelte from "rollup-plugin-svelte";'],
-          plugins: ["ts()", "svelte()"],
+          dependencies,
+          plugins: [`ts({ tsconfig: "tsconfig.build.json" })`, "svelte()"],
+          external: '["*"]',
+          output: [
+            `   {
+      dir: "./dist/",
+      format: "es",
+      preserveModules: true,
+      sourcemap: true,
+    }`,
+          ],
         }),
       });
       break;
     }
 
     case "vue": {
+      dependencies.push(PLUGIN_TS, {
+        name: "@vitejs/plugin-vue",
+        default: "vue",
+      });
       files.push({
-        dependencies,
+        dependencies: [...depNames, ...dependencies.map((d) => d.name)],
         filename,
         language,
         contents: buildRollupConfig({
-          imports: ['import vue from "rollup-plugin-vue";'],
-          plugins: ["vue()"],
+          dependencies,
+          plugins: [`ts({ tsconfig: "tsconfig.build.json" })`, "vue()"],
+          external: '["*"]',
+          output: [
+            `   {
+      dir: "./dist/",
+      format: "es",
+      preserveModules: true,
+      sourcemap: true,
+    }`,
+          ],
         }),
       });
       break;
@@ -119,23 +155,23 @@ export default function buildRollup({ framework }: RollupOptions): File[] {
 }
 
 export interface RollupConfigOptions {
+  dependencies?: Dependency[];
   plugins?: string[];
   inputs?: string[];
-  imports?: string[];
   external?: string;
   output?: string[];
 }
 
 /** Build Rollup Config */
 export function buildRollupConfig({
+  dependencies,
   inputs,
-  imports,
   external,
   plugins,
   output,
 }: RollupConfigOptions) {
   const config = [
-    ...(imports ? imports.concat("") : []),
+    ...(dependencies ? dependencies.map(formatImportStatement).concat("") : []),
     '/** @type {import("rollup").InputOptions} */',
     "const config = {",
   ];

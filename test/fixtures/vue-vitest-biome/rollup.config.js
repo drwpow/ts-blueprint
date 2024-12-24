@@ -1,9 +1,20 @@
-import vue from "rollup-plugin-vue";
+import ts from "@rollup/plugin-typescript";
+import vue from "@vitejs/plugin-vue";
 
 /** @type {import("rollup").InputOptions} */
 const config = {
   plugins: [
+    ts({ tsconfig: "tsconfig.build.json" }),
     vue(),
+  ],
+  external: ["*"],
+  output: [
+    {
+      dir: "./dist/",
+      format: "es",
+      preserveModules: true,
+      sourcemap: true,
+    },
   ],
 };
 

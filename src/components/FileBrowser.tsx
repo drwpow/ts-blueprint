@@ -85,7 +85,7 @@ export default function FileBrowser({ files, highlighter }: FileBrowserProps) {
               <CodePanel
                 highlighter={highlighter}
                 language={file.language}
-                contents={file.contents}
+                contents={file.contents.trim()}
               />
             </div>
           );
