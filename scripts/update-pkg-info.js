@@ -7,6 +7,7 @@ const PACKAGES = [
   "@babel/preset-typescript",
   "@biomejs/biome",
   "@eslint/js",
+  "@rollup/plugin-commonjs",
   "@rollup/plugin-typescript",
   "@sveltejs/vite-plugin-svelte",
   "@testing-library/jest-dom",

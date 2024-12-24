@@ -27,6 +27,18 @@ body {
   margin: 0;
 }
 
+a {
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--highlight-color);
+}
+
+a:focus-visible {
+  outline: 2px solid var(--highlight-background);
+}
+
 *,
 *::before,
 *::after {
@@ -42,5 +54,6 @@ body {
 
 .shiki {
   line-height: 1.75;
+  margin: 0;
   padding: 1rem;
 }

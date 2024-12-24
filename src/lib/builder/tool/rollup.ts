@@ -1,17 +1,13 @@
-import { ext, trimLeading } from "../../string.js";
-import type { File, Framework, Module } from "../../types.js";
+import { trimLeading } from "../../string.js";
+import type { File, Framework } from "../../types.js";
 
 export interface RollupOptions {
   framework: Framework;
-  module: Module;
 }
 
-export default function buildRollup({
-  framework,
-  module,
-}: RollupOptions): File[] {
+export default function buildRollup({ framework }: RollupOptions): File[] {
   const imports = ['import ts from "@rollup/plugin-typescript";'];
-  const filename = ext("rollup.config.mjs", module);
+  const filename = "rollup.config.js";
   const language = "javascript";
   const dependencies: File["dependencies"] = [
     "@rollup/plugin-typescript",
@@ -21,13 +17,40 @@ export default function buildRollup({
 
   switch (framework) {
     case "nodejs": {
+      imports.push('import commonjs from "@rollup/plugin-commonjs";');
+      dependencies.push("@rollup/plugin-commonjs");
       files.push({
         dependencies,
         filename,
         language,
         contents: buildRollupConfig({
           imports,
-          plugins: ["ts()"],
+          plugins: [`ts({ tsconfig: "tsconfig.build.json" })`, "commonjs()"],
+          output: [
+            `   {
+      dir: "./dist/",
+      format: "es",
+      preserveModules: true,
+      sourcemap: true,
+      globals: {
+        "react/jsx-runtime": "jsxRuntime",
+        "react-dom/client": "ReactDOM",
+        react: "React",
+      }
+    }`,
+            `   {
+      dir: "./dist/",
+      format: "cjs",
+      preserveModules: true,
+      sourcemap: true,
+      entryFileNames: "[name].cjs",
+      globals: {
+        "react/jsx-runtime": "jsxRuntime",
+        "react-dom/client": "ReactDOM",
+        react: "React",
+      }
+    }`,
+          ],
         }),
       });
       break;
@@ -42,20 +65,23 @@ export default function buildRollup({
           imports: [...imports, 'import css from "rollup-plugin-import-css";'],
           plugins: [
             `css({
-output: "all-components.css",
-})`,
+      output: "all-components.css",
+    })`,
             `ts({
-tsconfig: "./tsconfig.build.json",
-})`,
+      tsconfig: "./tsconfig.build.json",
+    })`,
           ],
+          external: `["*"]`,
           output: [
-            'dir: "./dist/"',
-            "sourcemap: true",
-            `globals: {
-"react/jsx-runtime": "jsxRuntime",
-"react-dom/client": "ReactDOM",
-react: 'React',
-}`,
+            "[{",
+            '    dir: "./dist/"',
+            "    sourcemap: true",
+            `    globals: {
+      "react/jsx-runtime": "jsxRuntime",
+      "react-dom/client": "ReactDOM",
+      react: "React",
+    }`,
+            "  ],",
           ],
         }),
       });
@@ -96,6 +122,7 @@ export interface RollupConfigOptions {
   plugins?: string[];
   inputs?: string[];
   imports?: string[];
+  external?: string;
   output?: string[];
 }
 
@@ -103,6 +130,7 @@ export interface RollupConfigOptions {
 export function buildRollupConfig({
   inputs,
   imports,
+  external,
   plugins,
   output,
 }: RollupConfigOptions) {
@@ -115,24 +143,28 @@ export function buildRollupConfig({
   if (plugins) {
     config.push(
       "  plugins: [",
-      ...plugins.map((p) => trimLeading(p, "    ")),
+      ...plugins.map((p) => `${trimLeading(p, "    ")},`),
       "  ],",
     );
+  }
+
+  if (external) {
+    config.push(`  external: ${external},`);
   }
 
   if (inputs) {
     config.push(
       "  inputs: [",
-      ...inputs.map((i) => trimLeading(i, "    ")),
+      ...inputs.map((i) => `${trimLeading(i, "    ")},`),
       "  ],",
     );
   }
 
   if (output) {
     config.push(
-      "  output: {",
-      ...output.map((o) => trimLeading(o, "    ")),
-      "  },",
+      "  output: [",
+      ...output.map((o) => `${trimLeading(o, "    ")},`),
+      "  ],",
     );
   }
 

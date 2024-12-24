@@ -5,7 +5,6 @@ import type { Linter } from "./linter.js";
 
 export interface PkgJSONOptions {
   cli?: boolean;
-  cjs?: boolean;
   dependencies: (keyof typeof npmData)[];
   framework: Framework;
   lint: Linter;
@@ -14,7 +13,6 @@ export interface PkgJSONOptions {
 
 export default function buildPkgJSON({
   cli,
-  cjs,
   dependencies,
   framework,
   lint,
@@ -22,7 +20,7 @@ export default function buildPkgJSON({
 }: PkgJSONOptions): File[] {
   const pkgInfo: Partial<Manifest> = {
     name: "my-app",
-    type: cjs ? "commonjs" : "module",
+    type: "module",
     main: "./dist/index.js",
     scripts: {
       format: lint === "eslint" ? "eslint --fix ." : "biome format --write .",
@@ -39,18 +37,16 @@ export default function buildPkgJSON({
     };
   }
 
-  if (cjs) {
-    pkgInfo.exports = {
-      ".": {
-        import: "./dist/index.js",
-        require: "./dist/index.cjs",
-        types: "./dist/index.d.ts",
-        default: "./dist/index.js",
-      },
-      "./*": "./dist/*",
-      "./package.json": "./package.json",
-    };
-  }
+  pkgInfo.exports = {
+    ".": {
+      import: "./dist/index.js",
+      require: "./dist/index.cjs",
+      types: "./dist/index.d.ts",
+      default: "./dist/index.js",
+    },
+    "./*": "./dist/*",
+    "./package.json": "./package.json",
+  };
 
   switch (framework) {
     case "react": {
@@ -110,6 +106,7 @@ const KEY_ORDER = [
   "name",
   "version",
   "description",
+  "type",
   "bin",
   "main",
   "exports",

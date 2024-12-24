@@ -11,13 +11,14 @@ import {
 import { type Highlighter, createHighlighter } from "shiki";
 import { type Linter, pkgBuilder } from "../lib/builder/index.js";
 import type { Framework, Module, Test } from "../lib/types.js";
+import "../styles/Button.css";
 import "../styles/Form.css";
 import "../styles/RadioGroup.css";
 import "../styles/Tabs.css";
 import "./Builder.css";
 import Checkbox from "./Checkbox.js";
-
-const THEME = "catppuccin-macchiato";
+import CodePanel, { THEME } from "./CodePanel.js";
+import InfoPanel from "./InfoPanel.js";
 
 export default function Builder() {
   const [highlighter, setHighlighter] = useState<Highlighter>();
@@ -51,19 +52,20 @@ export default function Builder() {
           value={framework}
           onChange={(value) => setFramework(value as Framework)}
         >
-          <Label>Framework</Label>
+          <Label className="builder-setting-label">
+            Framework
+            <InfoPanel title="Framework">
+              <p>
+                The type of library this is. While there are many other
+                frameworks out there—too many to include in this tool—these are
+                the most common.
+              </p>
+            </InfoPanel>
+          </Label>
           <Radio value="nodejs">Vanilla JS / Node.js</Radio>
           <Radio value="react">React</Radio>
           <Radio value="vue">Vue</Radio>
           <Radio value="svelte">Svelte</Radio>
-        </RadioGroup>
-        <RadioGroup
-          value={module}
-          onChange={(value) => setModule(value as Module)}
-        >
-          <Label>Module</Label>
-          <Radio value="esm">ESM (Recommended)</Radio>
-          <Radio value="cjs">CommonJS</Radio>
         </RadioGroup>
         <RadioGroup
           value={linter}
@@ -86,32 +88,25 @@ export default function Builder() {
       <section className="builder-tabs">
         <Tabs>
           <div className="builder-tablist">
-            <TabList>
-              {files.map((file) => (
-                <Tab key={file.filename} id={file.filename}>
-                  {file.filename}
-                </Tab>
-              ))}
-            </TabList>
+            <div className="builder-tablist-wrap">
+              <TabList>
+                {files.map((file) => (
+                  <Tab key={file.filename} id={file.filename}>
+                    {file.filename}
+                  </Tab>
+                ))}
+              </TabList>
+            </div>
           </div>
-          {files.map((file) => {
-            if (!highlighter) {
-              return null;
-            }
-            return (
-              <TabPanel key={file.filename} id={file.filename}>
-                <div
-                  // biome-ignore lint/security/noDangerouslySetInnerHtml: This is generated locally and does not allow arbitrary execution
-                  dangerouslySetInnerHTML={{
-                    __html: highlighter.codeToHtml(file.contents, {
-                      lang: file.language,
-                      theme: THEME,
-                    }),
-                  }}
-                />
-              </TabPanel>
-            );
-          })}
+          {files.map((file) => (
+            <TabPanel key={file.filename} id={file.filename}>
+              <CodePanel
+                highlighter={highlighter}
+                language={file.language}
+                contents={file.contents}
+              />
+            </TabPanel>
+          ))}
         </Tabs>
       </section>
     </div>

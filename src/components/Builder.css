@@ -1,11 +1,22 @@
 .builder {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 1fr 2fr;
   margin-inline: auto;
   max-width: 80rem;
   padding-inline: 1.5rem;
   width: 100%;
+}
+
+@media (width >= 800px) {
+  .builder {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.builder-setting-label {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
 }
 
 .builder-settings {
@@ -17,9 +28,27 @@
 .builder-tabs {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+.builder-tabs .react-aria-TabPanel {
+  padding: 0;
+}
+
+.builder-tablist-wrap {
+  overflow-x: auto;
 }
 
 .builder-tablist {
-  overflow-x: auto;
-  width: calc(0.66666666 * var(--wrapper-width));
+  position: relative;
+}
+
+.builder-tablist::after {
+  border-bottom: 1px solid var(--border-color);
+  bottom: 0;
+  content: "";
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
 }

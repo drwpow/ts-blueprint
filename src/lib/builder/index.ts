@@ -33,7 +33,6 @@ export interface PkgBuilderOptions {
   settings: {
     framework: Framework;
     cli: boolean;
-    module: Module;
     linter: Linter;
     test: Test;
   };
@@ -43,19 +42,16 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
   const files = [
     ...buildBundler({
       framework: settings.framework,
-      module: settings.module,
     }),
     ...buildLinter({
+      framework: settings.framework,
       linter: settings.linter,
-      module: settings.module,
     }),
     ...buildTSConfig({
       framework: settings.framework,
-      module: settings.module,
     }),
     ...buildTest({
       framework: settings.framework,
-      module: settings.module,
       test: settings.test,
     }),
   ];
@@ -71,7 +67,6 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
     ...buildPkgJSON({
       dependencies: [...allDeps],
       framework: settings.framework,
-      cjs: settings.module === "cjs",
       lint: settings.linter,
       test: settings.test,
       cli: settings.cli,
