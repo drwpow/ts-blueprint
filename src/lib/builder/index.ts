@@ -1,5 +1,5 @@
 import type npmData from "../../data/npm.js";
-import type { File, Framework, Module, Test } from "../types.js";
+import type { File, Framework, Test } from "../types.js";
 import buildBundler from "./bundler.js";
 import buildLinter, { type Linter } from "./linter.js";
 import buildPkgJSON from "./pkg-json.js";
@@ -11,23 +11,6 @@ export * from "./linter.js";
 export * from "./pkg-json.js";
 export * from "./tsconfig.js";
 export * from "./test.js";
-
-const FILE_ORDER = [
-  // constants
-  "package.json",
-  "tsconfig.json",
-  "tsconfig.build.json",
-
-  // variables
-  "babel.config",
-  "biome.json",
-  "eslint.config",
-  "jest.config",
-  "jest.setup",
-  "rollup.config",
-  "vitest.config",
-  "vitest.setup",
-];
 
 export interface PkgBuilderOptions {
   settings: {
@@ -74,10 +57,8 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
   );
 
   const sorted = [...files];
-  sorted.sort((a, b) => {
-    const aInd = FILE_ORDER.findIndex((f) => a.filename.startsWith(f));
-    const bInd = FILE_ORDER.findIndex((f) => b.filename.startsWith(f));
-    return (aInd === -1 ? 10_000 : aInd) - (bInd === -1 ? 10_000 : bInd);
-  });
+  sorted.sort((a, b) =>
+    a.filename.localeCompare(b.filename, undefined, { numeric: true }),
+  );
   return sorted;
 }

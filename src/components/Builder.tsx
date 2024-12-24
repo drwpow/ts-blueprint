@@ -1,29 +1,20 @@
 import { useEffect, useState } from "react";
-import {
-  Label,
-  Radio,
-  RadioGroup,
-  Tab,
-  TabList,
-  TabPanel,
-  Tabs,
-} from "react-aria-components";
+import { Label, Radio, RadioGroup } from "react-aria-components";
 import { type Highlighter, createHighlighter } from "shiki";
 import { type Linter, pkgBuilder } from "../lib/builder/index.js";
-import type { Framework, Module, Test } from "../lib/types.js";
+import type { Framework, Test } from "../lib/types.js";
 import "../styles/Button.css";
 import "../styles/Form.css";
 import "../styles/RadioGroup.css";
-import "../styles/Tabs.css";
 import "./Builder.css";
 import Checkbox from "./Checkbox.js";
-import CodePanel, { THEME } from "./CodePanel.js";
+import { THEME } from "./CodePanel.js";
+import FileBrowser from "./FileBrowser.js";
 import InfoPanel from "./InfoPanel.js";
 
 export default function Builder() {
   const [highlighter, setHighlighter] = useState<Highlighter>();
   const [framework, setFramework] = useState<Framework>("nodejs");
-  const [module, setModule] = useState<Module>("esm");
   const [linter, setLinter] = useState<Linter>("biome");
   const [cli, setCLI] = useState(false);
   const [test, setTest] = useState<Test>("vitest");
@@ -38,7 +29,6 @@ export default function Builder() {
   const files = pkgBuilder({
     settings: {
       framework,
-      module,
       linter,
       test,
       cli,
@@ -85,29 +75,8 @@ export default function Builder() {
         </Checkbox>
       </section>
 
-      <section className="builder-tabs">
-        <Tabs>
-          <div className="builder-tablist">
-            <div className="builder-tablist-wrap">
-              <TabList>
-                {files.map((file) => (
-                  <Tab key={file.filename} id={file.filename}>
-                    {file.filename}
-                  </Tab>
-                ))}
-              </TabList>
-            </div>
-          </div>
-          {files.map((file) => (
-            <TabPanel key={file.filename} id={file.filename}>
-              <CodePanel
-                highlighter={highlighter}
-                language={file.language}
-                contents={file.contents}
-              />
-            </TabPanel>
-          ))}
-        </Tabs>
+      <section className="builder-code">
+        <FileBrowser highlighter={highlighter} files={files} />
       </section>
     </div>
   );

@@ -41,7 +41,7 @@ export default function buildVitest({ framework }: VitestOptions): File[] {
 
     files.push({
       dependencies: setupDependencies,
-      filename: "vite.setup.mts",
+      filename: "vite.setup.ts",
       language: "typescript",
       contents: ['import "@testing-library/jest-dom/vitest";'].join("\n"),
     });

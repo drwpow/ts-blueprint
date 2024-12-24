@@ -25,30 +25,8 @@
   gap: 1.5rem;
 }
 
-.builder-tabs {
+.builder-code {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-.builder-tabs .react-aria-TabPanel {
-  padding: 0;
-}
-
-.builder-tablist-wrap {
-  overflow-x: auto;
-}
-
-.builder-tablist {
-  position: relative;
-}
-
-.builder-tablist::after {
-  border-bottom: 1px solid var(--border-color);
-  bottom: 0;
-  content: "";
-  left: 0;
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
 }
