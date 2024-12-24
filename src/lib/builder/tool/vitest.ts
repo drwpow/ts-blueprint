@@ -1,11 +1,23 @@
-import type { File, Framework } from "../../types.js";
+import { formatImportStatement } from "../../module.js";
+import type { Dependency, File, Framework } from "../../types.js";
 
 export interface VitestOptions {
   framework: Framework;
 }
 
+const DEPENDENCIES: Record<Framework, Dependency[]> = {
+  nodejs: [],
+  react: [{ name: "@vitejs/plugin-react-swc", default: "react" }],
+  vue: [{ name: "@vitejs/plugin-vue", default: "vue" }],
+  svelte: [{ name: "@sveltejs/vite-plugin-svelte", default: "svelte" }],
+};
+
 export default function buildVitest({ framework }: VitestOptions): File[] {
   const hasSetupFiles = framework !== "nodejs";
+
+  const plugins = (DEPENDENCIES[framework] || []).map(
+    (p) => `    ${p.default}(),`,
+  );
 
   const files: File[] = [
     {
@@ -13,9 +25,11 @@ export default function buildVitest({ framework }: VitestOptions): File[] {
       filename: "vite.config.ts",
       language: "typescript",
       contents: [
+        ...(DEPENDENCIES[framework] || []).map(formatImportStatement),
         'import { defineConfig } from "vitest/config";',
         "",
         "export default defineConfig({",
+        ...(plugins.length ? ["  plugins: {", ...plugins, "  },"] : []),
         "  test: {",
         `    environment: "${framework === "nodejs" ? "node" : "jsdom"}",`,
         ...(hasSetupFiles
@@ -41,7 +55,7 @@ export default function buildVitest({ framework }: VitestOptions): File[] {
 
     files.push({
       dependencies: setupDependencies,
-      filename: "vite.setup.ts",
+      filename: "vitest.setup.ts",
       language: "typescript",
       contents: ['import "@testing-library/jest-dom/vitest";'].join("\n"),
     });

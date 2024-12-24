@@ -1,0 +1,11 @@
+{
+  "name": "@test/nodejs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c rollup.config.js"
+  },
+  "devDependencies": {
+    "rollup": "^4.29.1"
+  }
+}

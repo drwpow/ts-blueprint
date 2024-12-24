@@ -57,8 +57,15 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
   );
 
   const sorted = [...files];
-  sorted.sort((a, b) =>
-    a.filename.localeCompare(b.filename, undefined, { numeric: true }),
-  );
+  sorted.sort((a, b) => {
+    // sort package.json first
+    if (a.filename === "package.json") {
+      return -1;
+    }
+    if (b.filename === "package.json") {
+      return 1;
+    }
+    return a.filename.localeCompare(b.filename, undefined, { numeric: true });
+  });
   return sorted;
 }

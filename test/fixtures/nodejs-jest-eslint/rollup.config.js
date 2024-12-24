@@ -1,5 +1,5 @@
-import ts from "@rollup/plugin-typescript";
 import commonjs from "@rollup/plugin-commonjs";
+import ts from "@rollup/plugin-typescript";
 
 /** @type {import("rollup").InputOptions} */
 const config = {
@@ -13,11 +13,6 @@ const config = {
       format: "es",
       preserveModules: true,
       sourcemap: true,
-      globals: {
-        "react/jsx-runtime": "jsxRuntime",
-        "react-dom/client": "ReactDOM",
-        react: "React",
-      }
     },
     {
       dir: "./dist/",
@@ -25,11 +20,6 @@ const config = {
       preserveModules: true,
       sourcemap: true,
       entryFileNames: "[name].cjs",
-      globals: {
-        "react/jsx-runtime": "jsxRuntime",
-        "react-dom/client": "ReactDOM",
-        react: "React",
-      }
     },
   ],
 };

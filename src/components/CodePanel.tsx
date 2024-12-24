@@ -41,7 +41,7 @@ export default function CodePanel({
   );
 
   return (
-    <div className="codepanel-wrapper">
+    <div className="codepanel">
       <div
         // biome-ignore lint/security/noDangerouslySetInnerHtml: This is generated locally and does not allow arbitrary execution
         dangerouslySetInnerHTML={{ __html }}
