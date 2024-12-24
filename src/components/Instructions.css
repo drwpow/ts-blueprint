@@ -1,8 +1,29 @@
 .instructions {
-  margin-block: 4rem;
+  margin-block-start: 6rem;
+  margin-block-end: 4rem;
 }
 
 .instructions p {
-  line-height: 2;
-  max-width: 40em;
+  line-height: 1.6;
+}
+
+.instructions a,
+.footer a {
+  font-size: 1em;
+}
+
+.instructions-body {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(24em, 1fr));
+}
+
+.footer {
+  font-size: 0.875em;
+  text-align: center;
+  padding-block-end: 4rem;
+}
+
+.footer a {
+  font-size: 1em;
 }

@@ -1,11 +1,22 @@
 .builder {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: 1fr 2fr;
   margin-inline: auto;
   max-width: 80rem;
   padding-inline: 1.5rem;
   width: 100%;
+}
+
+@media (width >= 800px) {
+  .builder {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+.builder-setting-label {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
 }
 
 .builder-settings {
@@ -14,12 +25,8 @@
   gap: 1.5rem;
 }
 
-.builder-tabs {
+.builder-code {
   display: flex;
   flex-direction: column;
-}
-
-.builder-tablist {
-  overflow-x: auto;
-  width: calc(0.66666666 * var(--wrapper-width));
+  overflow: hidden;
 }

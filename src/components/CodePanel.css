@@ -1,0 +1,10 @@
+.codepanel-wrapper {
+  position: relative;
+}
+
+.codepanel-copy {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+}

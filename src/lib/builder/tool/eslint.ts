@@ -1,15 +1,14 @@
-import { ext } from "../../string.js";
-import type { File, Module } from "../../types.js";
+import type { File, Framework } from "../../types.js";
 
 export interface ESLintOptions {
-  module: Module;
+  framework: Framework;
 }
 
-export default function buildESLint({ module }: ESLintOptions): File[] {
+export default function buildESLint({ framework }: ESLintOptions): File[] {
   return [
     {
       dependencies: ["@eslint/js", "typescript-eslint"],
-      filename: ext("eslint.config.mjs", module),
+      filename: "eslint.config.js",
       language: "javascript",
       contents: [
         'import eslint from "@eslint/js";',

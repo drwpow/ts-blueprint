@@ -1,0 +1,50 @@
+.filebrowser {
+  --bg: #24273a;
+  --bg-highlight: #c6a0f626;
+  --border: #5b6078;
+  --fg: #cad3f5d0;
+  --fg-highlight: #cad3f5;
+
+  background: var(--bg);
+  color: var(--fg);
+  display: grid;
+  height: 100%;
+  grid-template-columns: min-content auto;
+}
+
+.filebrowser-tablist {
+  border-right: 1px solid var(--border);
+  list-style: none;
+  margin: 0;
+  padding-block: 1rem;
+  padding-inline: 0;
+}
+
+.filebrowser-tab {
+  align-items: center;
+  background: var(--bg);
+  border: none;
+  color: var(--fg);
+  display: flex;
+  font-family: inherit;
+  font-size: 0.875rem;
+  height: 2em;
+  line-height: 1;
+  padding-inline: 1.5rem;
+  padding-block: 0;
+  width: 100%;
+}
+
+.filebrowser-tab:hover {
+  background: color-mix(in oklab, var(--bg-highlight), transparent 50%);
+  color: var(--fg-highlight);
+}
+
+.filebrowser-tab:focus-visible {
+  outline: 2px solid var(--highlight-background);
+}
+
+.filebrowser-tab[aria-selected="true"] {
+  background: var(--bg-highlight);
+  color: var(--fg-highlight);
+}

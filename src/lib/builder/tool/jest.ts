@@ -1,23 +1,22 @@
-import { ext, trimLeading } from "../../string.js";
-import type { File, Framework, Module } from "../../types.js";
+import { trimLeading } from "../../string.js";
+import type { File, Framework } from "../../types.js";
 
 export interface JestOptions {
   framework: Framework;
-  module: Module;
 }
 
-export default function buildJest({ framework, module }: JestOptions): File[] {
+export default function buildJest({ framework }: JestOptions): File[] {
   return [
     {
       dependencies: ["jest", "ts-jest"],
-      filename: ext("jest.config.cjs", module),
+      filename: "jest.config.cjs",
       language: "javascript",
       contents: [
         '/** @type {import("jest").Config} */',
         "module.exports = {",
         '  testEnvironment: "jsdom",',
         trimLeading(
-          `setupFilesAfterEnv: ["<rootDir>/${ext("jest.setup.cts", module)}"],`,
+          `setupFilesAfterEnv: ["<rootDir>/${"jest.setup.ts"}"],`,
           "  ",
         ),
         "};",
@@ -33,7 +32,7 @@ export default function buildJest({ framework, module }: JestOptions): File[] {
         "@babel/preset-typescript",
         "@types/babel__core",
       ],
-      filename: ext("babel.config.cjs", module),
+      filename: "babel.config.cjs",
       language: "javascript",
       contents: `/** @type {import("@types/babel__core").TransformOptions} */
 module.exports = {
