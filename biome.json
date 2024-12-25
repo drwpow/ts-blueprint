@@ -3,11 +3,12 @@
   "files": {
     "ignoreUnknown": false,
     "ignore": [
-      "./dist/**",
-      "./node_modules/**",
+      "**/dist/**",
+      "**/node_modules/**",
       "./public/assets/**",
       "./src/data/npm.ts",
-      "./test/fixtures/**"
+      "./test/fixtures/**",
+      "./test/nodejs"
     ]
   },
   "formatter": {

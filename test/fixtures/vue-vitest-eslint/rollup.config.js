@@ -8,6 +8,7 @@ const config = {
     vue(),
   ],
   external: ["*"],
+  input: "src/index.ts",
   output: [
     {
       dir: "./dist/",

@@ -7,6 +7,7 @@ const config = {
     ts({ tsconfig: "tsconfig.build.json" }),
     commonjs(),
   ],
+  input: "src/index.ts",
   output: [
     {
       dir: "./dist/",

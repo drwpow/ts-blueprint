@@ -3,9 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "rollup -c rollup.config.js"
+    "build": "rollup -c rollup.config.js",
+    "format": "biome format --write src",
+    "lint": "biome check src",
+    "test": "vitest run"
   },
   "devDependencies": {
-    "rollup": "^4.29.1"
+    "@biomejs/biome": "^1.9.4",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "rollup": "^4.29.1",
+    "vitest": "^2.1.8"
   }
 }

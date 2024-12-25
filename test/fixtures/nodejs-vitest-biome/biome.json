@@ -4,8 +4,7 @@
     "ignoreUnknown": false,
     "ignore": [
       "dist/**",
-      "node_modules/**",
-      "public/**"
+      "node_modules/**"
     ]
   },
   "formatter": {

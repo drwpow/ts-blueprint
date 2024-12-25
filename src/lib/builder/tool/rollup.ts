@@ -34,6 +34,7 @@ export default function buildRollup({ framework }: RollupOptions): File[] {
         language,
         contents: buildRollupConfig({
           dependencies,
+          input: '"src/index.ts"',
           plugins: [`ts({ tsconfig: "tsconfig.build.json" })`, "commonjs()"],
           output: [
             `   {
@@ -67,6 +68,7 @@ export default function buildRollup({ framework }: RollupOptions): File[] {
         language,
         contents: buildRollupConfig({
           dependencies,
+          input: '"src/index.ts"',
           plugins: [
             `css({
       output: "all-components.css",
@@ -109,6 +111,7 @@ export default function buildRollup({ framework }: RollupOptions): File[] {
         language,
         contents: buildRollupConfig({
           dependencies,
+          input: '"src/index.ts"',
           plugins: [`ts({ tsconfig: "tsconfig.build.json" })`, "svelte()"],
           external: '["*"]',
           output: [
@@ -135,6 +138,7 @@ export default function buildRollup({ framework }: RollupOptions): File[] {
         language,
         contents: buildRollupConfig({
           dependencies,
+          input: '"src/index.ts"',
           plugins: [`ts({ tsconfig: "tsconfig.build.json" })`, "vue()"],
           external: '["*"]',
           output: [
@@ -157,7 +161,7 @@ export default function buildRollup({ framework }: RollupOptions): File[] {
 export interface RollupConfigOptions {
   dependencies?: Dependency[];
   plugins?: string[];
-  inputs?: string[];
+  input?: string;
   external?: string;
   output?: string[];
 }
@@ -165,7 +169,7 @@ export interface RollupConfigOptions {
 /** Build Rollup Config */
 export function buildRollupConfig({
   dependencies,
-  inputs,
+  input,
   external,
   plugins,
   output,
@@ -188,12 +192,8 @@ export function buildRollupConfig({
     config.push(`  external: ${external},`);
   }
 
-  if (inputs) {
-    config.push(
-      "  inputs: [",
-      ...inputs.map((i) => `${trimLeading(i, "    ")},`),
-      "  ],",
-    );
+  if (input) {
+    config.push(`  input: ${input},`);
   }
 
   if (output) {

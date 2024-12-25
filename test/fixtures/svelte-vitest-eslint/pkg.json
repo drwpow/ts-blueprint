@@ -18,8 +18,8 @@
   },
   "scripts": {
     "build": "svelte-package",
-    "format": "eslint --fix .",
-    "lint": "eslint .",
+    "format": "eslint --fix src",
+    "lint": "eslint src",
     "test": "vitest run"
   },
   "peerDependencies": {

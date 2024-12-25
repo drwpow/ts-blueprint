@@ -13,5 +13,7 @@ export default function buildLinter({
   framework,
   linter,
 }: LinterOptions): File[] {
-  return linter === "eslint" ? buildESLint({ framework }) : buildBiome();
+  return linter === "eslint"
+    ? buildESLint({ framework })
+    : buildBiome({ framework });
 }
