@@ -15,8 +15,8 @@
   },
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "format": "eslint --fix .",
-    "lint": "eslint .",
+    "format": "eslint --fix src",
+    "lint": "eslint src",
     "test": "vitest run"
   },
   "devDependencies": {

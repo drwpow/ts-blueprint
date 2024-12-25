@@ -18,8 +18,8 @@
   },
   "scripts": {
     "build": "svelte-package",
-    "format": "biome format --write .",
-    "lint": "biome check .",
+    "format": "biome format --write src",
+    "lint": "biome check src",
     "test": "jest"
   },
   "peerDependencies": {

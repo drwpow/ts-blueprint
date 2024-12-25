@@ -4,8 +4,7 @@
     "ignoreUnknown": false,
     "ignore": [
       "dist/**",
-      "node_modules/**",
-      "public/**"
+      "node_modules/**"
     ]
   },
   "formatter": {
@@ -25,5 +24,21 @@
     "formatter": {
       "quoteStyle": "double"
     }
-  }
+  },
+  "overrides": [
+    {
+      "include": [
+        "*.svelte",
+        "*.vue"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "useConst": "off",
+            "useImportType": "off"
+          }
+        }
+      }
+    }
+  ]
 }

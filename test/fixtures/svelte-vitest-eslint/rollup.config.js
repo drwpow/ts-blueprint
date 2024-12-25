@@ -8,6 +8,7 @@ const config = {
     svelte(),
   ],
   external: ["*"],
+  input: "src/index.ts",
   output: [
     {
       dir: "./dist/",

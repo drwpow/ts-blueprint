@@ -11,10 +11,10 @@ export interface PkgJSONOptions {
   test: Test;
 }
 
-const ESLINT_FORMAT = "eslint --fix .";
-const ESLINT_LINT = "eslint .";
-const BIOME_FORMAT = "biome format --write .";
-const BIOME_LINT = "biome check .";
+const ESLINT_FORMAT = "eslint --fix src";
+const ESLINT_LINT = "eslint src";
+const BIOME_FORMAT = "biome format --write src";
+const BIOME_LINT = "biome check src";
 const VITEST_TEST = "vitest run";
 const JEST_TEST = "jest";
 

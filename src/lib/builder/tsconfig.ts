@@ -8,9 +8,12 @@ export default function buildTSConfig({ framework }: TSConfigOptions): File[] {
   // biome-ignore lint/suspicious/noExplicitAny: Type not exported by typescript
   const tsconfig: any = {
     compilerOptions: {
+      declaration: true,
       module: "NodeNext",
       moduleResolution: "nodenext",
       ...(framework === "react" ? { react: "react-jsx" } : {}),
+      outDir: "dist",
+      sourceMap: true,
       strict: true,
       target: "ESNext",
     },

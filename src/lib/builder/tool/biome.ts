@@ -1,6 +1,10 @@
-import type { File } from "../../types.js";
+import type { File, Framework } from "../../types.js";
 
-export default function buildBiome(): File[] {
+export interface BiomeOptions {
+  framework: Framework;
+}
+
+export default function buildBiome({ framework }: BiomeOptions): File[] {
   return [
     {
       dependencies: ["@biomejs/biome"],
@@ -11,7 +15,7 @@ export default function buildBiome(): File[] {
           $schema: "https://biomejs.dev/schemas/1.9.4/schema.json",
           files: {
             ignoreUnknown: false,
-            ignore: ["dist/**", "node_modules/**", "public/**"],
+            ignore: ["dist/**", "node_modules/**"],
           },
           formatter: {
             enabled: true,
@@ -31,6 +35,24 @@ export default function buildBiome(): File[] {
               quoteStyle: "double",
             },
           },
+          ...(["svelte", "vue"].includes(framework)
+            ? {
+                /** @see https://biomejs.dev/internals/language-support/#html-super-languages-support */
+                overrides: [
+                  {
+                    include: ["*.svelte", "*.vue"],
+                    linter: {
+                      rules: {
+                        style: {
+                          useConst: "off",
+                          useImportType: "off",
+                        },
+                      },
+                    },
+                  },
+                ],
+              }
+            : {}),
         },
         undefined,
         2,
