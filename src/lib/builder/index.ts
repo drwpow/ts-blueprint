@@ -39,12 +39,15 @@ export function pkgBuilder({ settings }: PkgBuilderOptions): File[] {
     }),
   ];
 
-  const allDeps = files.reduce((deps, file) => {
-    for (const dep of file.dependencies) {
-      deps.add(dep);
-    }
-    return deps;
-  }, new Set<keyof typeof npmData>());
+  const allDeps = files.reduce(
+    (deps, file) => {
+      for (const dep of file.dependencies) {
+        deps.add(dep);
+      }
+      return deps;
+    },
+    new Set<keyof typeof npmData>(["typescript", "tslib"]),
+  );
 
   files.push(
     ...buildPkgJSON({

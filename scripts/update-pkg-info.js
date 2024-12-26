@@ -28,8 +28,9 @@ const PACKAGES = [
   "rollup-plugin-import-css",
   "svelte",
   "ts-jest",
-  "typescript-eslint",
+  "tslib",
   "typescript",
+  "typescript-eslint",
   "vitest",
   "vue",
 ];
