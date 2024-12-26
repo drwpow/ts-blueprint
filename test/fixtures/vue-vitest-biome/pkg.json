@@ -31,6 +31,8 @@
     "@testing-library/vue": "^8.1.0",
     "@vitejs/plugin-vue": "^5.2.1",
     "rollup": "^4.29.1",
+    "tslib": "^2.8.1",
+    "typescript": "^5.7.2",
     "vitest": "^2.1.8"
   }
 }
